@@ -1,0 +1,6 @@
+[workspace]
+resolver = "2"
+members = [
+    "signal_server",
+    "webrtc_backend"
+]
