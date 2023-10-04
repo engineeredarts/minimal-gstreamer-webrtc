@@ -15,12 +15,58 @@ pub type SignalReceiver = mpsc::UnboundedReceiver<Signal>;
 pub enum Signal {
     #[serde(rename = "webrtc_offer")]
     WebRtcOffer { data: WebRtcOfferData },
+
+    #[serde(rename = "webrtc_answer")]
+    WebRtcAnswer { data: WebRtcAnswerData },
+
+    #[serde(rename = "ice_candidate")]
+    IceCandidate { data: IceCandidateData },
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct WebRtcOfferData {
-    sdp: String,
+    pub session_id: u64,
+    pub webrtc_data: WebRtcData,
 }
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct WebRtcAnswerData {
+    pub session_id: u64,
+    pub webrtc_data: WebRtcData,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct WebRtcData {
+    #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub data_type: Option<String>,
+    pub sdp: String,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct IceCandidateData {
+    pub session_id: u64,
+    pub webrtc_data: IceCandidateWebRtcData,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct IceCandidateWebRtcData {
+    pub candidate: String,
+
+    #[serde(rename = "mid")]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub media_id: Option<String>,
+
+    #[serde(rename = "sdpMLineIndex")]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub line_index: Option<u32>,
+
+    #[serde(rename = "usernameFragment")]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub username_fragment: Option<String>,
+}
+
+//////////////////////////////////////////////////////////////////////////////
 
 pub async fn connect(
     url: &str,

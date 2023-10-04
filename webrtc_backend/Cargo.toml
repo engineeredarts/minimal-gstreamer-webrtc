@@ -13,3 +13,10 @@ tokio = { version="1.32.0", features=["full"] }
 tokio-tungstenite = "0.20.1"
 tungstenite = "0.20.1"
 url = "2.4.1"
+glib = "0.18"
+gst = { package = "gstreamer", version = "0.21" }
+gst-video = { package = "gstreamer-video", version = "0.21" }
+gst-webrtc = { package = "gstreamer-webrtc", version = "0.21", features = ["v1_22"] }
+gst-rtp = { package = "gstreamer-rtp", version = "0.21", features = ["v1_22"] }
+gst-sdp = { package = "gstreamer-sdp", version = "0.21" }
+anyhow = "1.0.75"

@@ -5,8 +5,18 @@
     <title>Minimal GStreamer WebRTC</title>
     <script src="./webrtc.js"></script>
   </head>
-  <body onload="init_webrtc();">
+  <body onload="on_load();">
     <h1>Minimal GStreamer WebRTC</h1>
-    <button id="connect_button">Connect</button>
+    <div>
+      <button id="connect_button">Connect</button>
+      <button id="disconnect_button">Disconnect</button>
+    </div>
+
+    <!--     <div>&nbsp</div>
+    <div>
+      <input id="data" value="hello" />
+      <button id="send_data_button">Send</button>
+    </div>
+ -->
   </body>
 </html>
